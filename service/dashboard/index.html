@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PetroChoice — Smoking Detection CCTV & Video Intelligence</title>
+  <meta name="description" content="Production-ready real-time CCTV and video smoking detection powered by YOLO26n and EfficientNet-B0 ONNX">
+  
+  <!-- Modern Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+
+  <!-- Top App Header -->
+  <header class="app-header">
+    <div class="brand">
+      <div class="brand-icon">⚡</div>
+      <div class="brand-title">
+        <h1>PetroChoice Safety Vision</h1>
+        <p>Smoking Detection · YOLO26n + EfficientNet-B0 ONNX</p>
+      </div>
+    </div>
+    
+    <div class="header-status">
+      <div class="badge-pill" id="status-pill">
+        <span class="dot-indicator" id="status-dot"></span>
+        <span id="status-text">Engine Ready (CPU EP)</span>
+      </div>
+      <button class="btn btn-secondary" id="btn-open-upload">
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+        Upload Video
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Dashboard Layout -->
+  <main class="app-layout">
+    
+    <!-- Left Column: Video Player, Controls, KPIs -->
+    <div class="viewport-column">
+      
+      <!-- Video Selection & Session Controls -->
+      <section class="glass-panel control-bar" aria-label="Playback Controls">
+        <div class="source-selectors">
+          <label for="select-video" class="control-label" style="display:none">Select Video</label>
+          <select id="select-video" class="custom-select" title="Choose a video to analyze">
+            <option value="" disabled selected>Select a demo video...</option>
+          </select>
+          
+          <select id="select-mode" class="custom-select" style="min-width: 130px;" title="Analysis Mode">
+            <option value="realtime" selected>Realtime Pace</option>
+            <option value="fast">Fast (Max CPU)</option>
+          </select>
+        </div>
+
+        <div class="session-actions">
+          <button class="btn btn-primary" id="btn-start" disabled>
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            Start Analysis
+          </button>
+          <button class="btn btn-secondary" id="btn-pause" disabled>
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+            Pause
+          </button>
+          <button class="btn btn-danger" id="btn-stop" disabled>
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14"/></svg>
+            Stop
+          </button>
+        </div>
+      </section>
+
+      <!-- Video Canvas & Stream Display -->
+      <div class="player-container">
+        <div class="alert-banner" id="live-alert-banner">
+          <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0zM12 9v4M12 17h.01"/></svg>
+          ACTIVE SMOKING ALERT
+        </div>
+
+        <img id="stream-img" alt="Live Annotated Stream" style="display:none;" />
+        
+        <div class="player-empty" id="player-empty-state">
+          <svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+          <h3>Ready for Video Analysis</h3>
+          <p>Select a video from the toolbar or upload your own clip to begin real-time detection.</p>
+        </div>
+      </div>
+
+      <!-- Realtime KPI Cards -->
+      <section class="kpi-grid" aria-label="System Metrics">
+        <div class="kpi-card">
+          <span class="kpi-title">Processing Speed</span>
+          <span class="kpi-val" id="kpi-fps">0.0 <small style="font-size:0.9rem;font-weight:500;">FPS</small></span>
+          <span class="kpi-sub">Target: <span id="kpi-target-fps">5.0</span> FPS</span>
+        </div>
+        
+        <div class="kpi-card">
+          <span class="kpi-title">YOLO26n Latency</span>
+          <span class="kpi-val" id="kpi-det-latency">0 <small style="font-size:0.9rem;font-weight:500;">ms</small></span>
+          <span class="kpi-sub">Person Detector</span>
+        </div>
+
+        <div class="kpi-card">
+          <span class="kpi-title">Classifier Latency</span>
+          <span class="kpi-val" id="kpi-cls-latency">0 <small style="font-size:0.9rem;font-weight:500;">ms</small></span>
+          <span class="kpi-sub">EfficientNet-B0</span>
+        </div>
+
+        <div class="kpi-card">
+          <span class="kpi-title">Persons in View</span>
+          <span class="kpi-val" id="kpi-persons">0</span>
+          <span class="kpi-sub">Active Tracks</span>
+        </div>
+
+        <div class="kpi-card">
+          <span class="kpi-title">Total Alerts</span>
+          <span class="kpi-val" id="kpi-alerts" style="color: var(--color-danger);">0</span>
+          <span class="kpi-sub">Temporal verified</span>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Right Column: Settings Drawer & Alert Timeline -->
+    <aside class="sidebar-column">
+
+      <!-- Live Tuning Drawer -->
+      <section class="glass-panel">
+        <div class="panel-header">
+          <h2 class="panel-title">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            Live Pipeline Tuning
+          </h2>
+        </div>
+
+        <div class="tuning-body">
+          <!-- Threshold Slider -->
+          <div class="control-group">
+            <div class="control-label">
+              <span>Smoking Probability Threshold</span>
+              <strong id="val-threshold">0.50</strong>
+            </div>
+            <input type="range" id="slider-threshold" class="range-slider" min="0.10" max="0.95" step="0.01" value="0.50">
+          </div>
+
+          <!-- Crop Policy -->
+          <div class="control-group">
+            <div class="control-label">
+              <span>Person Crop Strategy</span>
+            </div>
+            <select id="select-crop-mode" class="custom-select" style="min-width: 100%;">
+              <option value="person" selected>Full Person Box (Default)</option>
+              <option value="upper_body">Upper Body (Head + Hands)</option>
+              <option value="full_frame">Full Scene Baseline</option>
+            </select>
+          </div>
+
+          <!-- Temporal Voting (K of N) -->
+          <div class="control-group">
+            <div class="control-label">
+              <span>Temporal Verification (K of N)</span>
+              <strong id="val-voting">3 of 5</strong>
+            </div>
+            <input type="range" id="slider-vote-k" class="range-slider" min="1" max="5" step="1" value="3">
+          </div>
+
+          <!-- CCTV Simulation Toggle -->
+          <div class="toggle-switch">
+            <div>
+              <div style="font-size:0.85rem;font-weight:600;">CCTV Degradation Preview</div>
+              <div style="font-size:0.75rem;color:var(--text-muted);">Apply sensor noise, compression & blur</div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="toggle-cctv-sim">
+              <span class="slider-round"></span>
+            </label>
+          </div>
+
+          <!-- Model Input Crops Preview -->
+          <div class="control-group">
+            <div class="control-label">
+              <span>Model Input Crops (Live Debug)</span>
+            </div>
+            <div class="crops-preview-box">
+              <img id="crops-img" alt="Model Input Crops" style="display:none;" />
+              <span id="crops-empty" style="font-size:0.75rem;color:var(--text-muted);">No active person crops</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Alert Feed -->
+      <section class="glass-panel" style="flex:1;">
+        <div class="panel-header">
+          <h2 class="panel-title">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+            Alert Timeline
+          </h2>
+          <button class="btn btn-secondary" id="btn-export-alerts" style="padding:4px 10px;font-size:0.75rem;">Export</button>
+        </div>
+
+        <div class="alert-feed" id="alert-feed">
+          <div style="text-align:center;padding:30px 10px;color:var(--text-muted);font-size:0.85rem;" id="alerts-empty">
+            No smoking incidents detected yet.
+          </div>
+        </div>
+      </section>
+
+    </aside>
+
+  </main>
+
+  <!-- Upload Modal -->
+  <div class="modal-overlay" id="upload-modal">
+    <div class="modal-content" style="max-width: 500px;">
+      <button class="modal-close" id="btn-close-upload">&times;</button>
+      <h3 style="font-size:1.1rem;font-weight:700;">Upload Video for Analysis</h3>
+      
+      <div class="dropzone" id="upload-dropzone">
+        <svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" style="margin-bottom:10px;color:var(--accent-primary);"><path d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/></svg>
+        <p style="font-weight:600;margin-bottom:4px;">Drag & drop your video file here</p>
+        <p style="font-size:0.8rem;color:var(--text-muted);">Supports MP4, AVI, MOV, MKV, WEBM (up to 500MB)</p>
+      </div>
+
+      <input type="file" id="file-input" accept=".mp4,.avi,.mov,.mkv,.webm" style="display:none;" />
+      <div id="upload-progress" style="display:none;font-size:0.85rem;color:var(--accent-primary);text-align:center;">
+        Uploading and validating video...
+      </div>
+    </div>
+  </div>
+
+  <!-- Snapshot Viewer Modal -->
+  <div class="modal-overlay" id="snapshot-modal">
+    <div class="modal-content">
+      <button class="modal-close" id="btn-close-snapshot">&times;</button>
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <h3 id="modal-snapshot-title" style="font-size:1.1rem;font-weight:700;">Incident Snapshot</h3>
+        <span id="modal-snapshot-badge" class="badge-pill" style="color:var(--color-danger);border-color:rgba(239,68,68,0.4);">SMOKING VERIFIED</span>
+      </div>
+      <img id="modal-snapshot-img" src="" alt="Full Incident Snapshot" />
+      <div id="modal-snapshot-info" style="font-size:0.85rem;color:var(--text-secondary);"></div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

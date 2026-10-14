@@ -1,0 +1,174 @@
+# ==============================================================================
+# Byte-compiled / optimized / C extensions
+# ==============================================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.pyd
+
+# ==============================================================================
+# Distribution / packaging / build artifacts
+# ==============================================================================
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# ==============================================================================
+# Testing, coverage, linting & type checking
+# ==============================================================================
+.tox/
+.nox/
+.coverage
+.coverage.*
+nosetests.xml
+coverage.xml
+htmlcov/
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.ruff_cache/
+
+# ==============================================================================
+# Jupyter Notebooks
+# ==============================================================================
+.ipynb_checkpoints
+*-checkpoint.ipynb
+
+# ==============================================================================
+# Virtual environments
+# ==============================================================================
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# ==============================================================================
+# Environment variables & local secrets
+# ==============================================================================
+.env
+.env.*
+!.env.example
+*.local
+*.pem
+*.key
+*.cert
+*.crt
+
+# ==============================================================================
+# Operating System & IDE / Editor files
+# ==============================================================================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+*.cab
+*.msi
+*.msix
+*.msu
+*.lnk
+
+# Linux
+*~
+.fuse_hidden*
+.directory
+
+# IDEs and editors
+.vscode/
+.idea/
+*.swp
+*.swo
+*.sublime-workspace
+*.sublime-project
+.gemini/
+
+# ==============================================================================
+# Machine Learning Checkpoints, Weights & Cache
+# ==============================================================================
+# PyTorch / TensorRT / general model weight formats
+*.pt
+*.pth
+*.pwf
+*.ckpt
+*.safetensors
+*.bin
+*.h5
+*.engine
+*.trt
+
+# Training checkpoints and output weights
+checkpoints/
+outputs/checkpoints/
+smoking_mobilenet/outputs/checkpoints/
+
+# Root temporary / duplicate model files
+/smoking_efficientnet_b0.onnx
+
+# Ignore general ONNX files except deployment models under models/
+*.onnx
+!models/*.onnx
+
+# ==============================================================================
+# Datasets, Raw Data & Archives
+# ==============================================================================
+*.zip
+*.tar
+*.tar.gz
+*.tgz
+smoking_mobilenet/data/raw/
+smoking_mobilenet/data/training_data/
+smoking_mobilenet/data/validation_data/
+smoking_mobilenet/data/testing_data/
+
+# ==============================================================================
+# PetroChoice Service Runtime Data & Storage
+# ==============================================================================
+# SQLite runtime databases
+*.db
+*.sqlite
+*.sqlite3
+data/events/*.db
+data/events/*.sqlite*
+
+# Runtime alert snapshots (keep folder structure)
+data/events/snapshots/*
+!data/events/snapshots/.gitkeep
+
+# Runtime user uploads (keep folder structure)
+data/uploads/*
+!data/uploads/.gitkeep
+
+# Keep demo videos
+!data/videos/demo_smoking_simulation.mp4

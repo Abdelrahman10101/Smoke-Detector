@@ -1,0 +1,28 @@
+{
+  "arch": "efficientnet_b0",
+  "input_name": "image",
+  "output_name": "prob",
+  "input_shape": [
+    "N",
+    3,
+    224,
+    224
+  ],
+  "input_format": "float32 NCHW RGB, values 0-255 (normalisation is inside the model)",
+  "preprocess": "letterbox to 224x224, pad=114, aspect preserved, no crop",
+  "mean_255": [
+    123.675,
+    116.28,
+    103.53
+  ],
+  "std_255": [
+    58.395,
+    57.12,
+    57.375
+  ],
+  "classes": [
+    "notsmoking",
+    "smoking"
+  ],
+  "threshold": 0.5
+}

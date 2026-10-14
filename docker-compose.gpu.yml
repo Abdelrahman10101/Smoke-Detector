@@ -1,0 +1,16 @@
+# GPU override compose file
+# Usage: docker compose -f docker-compose.yml -f docker-compose.gpu.yml up -d
+services:
+  smoking-service:
+    build:
+      args:
+        VARIANT: gpu
+    environment:
+      - REQUIRE_GPU=1
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]

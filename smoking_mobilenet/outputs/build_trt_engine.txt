@@ -1,0 +1,1 @@
+trtexec --onnx=D:\Abdo\Task\PetroChoice\smoking_efficientnet_b0.onnx --saveEngine=smoking_efficientnet_b0_fp16.engine --fp16 --minShapes=image:1x3x224x224 --optShapes=image:8x3x224x224 --maxShapes=image:32x3x224x224

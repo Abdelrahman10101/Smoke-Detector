@@ -1,0 +1,12 @@
+{
+  "models": {
+    "smoking_efficientnet_b0.onnx": {
+      "sha256": "23823536f1ca03149b02899e71bc584633b04df5b5b04931c03cd154cbcfdba7",
+      "size_bytes": 16031114
+    },
+    "yolo26n.onnx": {
+      "sha256": "90df5352c57cefd813dc1dcd0c04cd9026d9fa816ee3cf3f0fe2336a057f6916",
+      "size_bytes": 9942036
+    }
+  }
+}
