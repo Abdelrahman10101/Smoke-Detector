@@ -131,6 +131,7 @@ $RECYCLE.BIN/
 # Training checkpoints and output weights
 checkpoints/
 outputs/checkpoints/
+experiments/outputs/checkpoints/
 smoking_mobilenet/outputs/checkpoints/
 
 # Root temporary / duplicate model files
@@ -147,6 +148,10 @@ smoking_mobilenet/outputs/checkpoints/
 *.tar
 *.tar.gz
 *.tgz
+experiments/data/raw/
+experiments/data/training_data/
+experiments/data/validation_data/
+experiments/data/testing_data/
 smoking_mobilenet/data/raw/
 smoking_mobilenet/data/training_data/
 smoking_mobilenet/data/validation_data/

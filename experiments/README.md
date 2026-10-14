@@ -6,10 +6,10 @@ AdamW · ReduceLROnPlateau (`min_lr=2.5e-4`) · EarlyStopping (patience 5) · up
 
 ## Colab usage
 
-Upload this folder to Colab (e.g. `/content/smoking_mobilenet`), set **Runtime → GPU**, then:
+Upload this folder to Colab (e.g. `/content/experiments`), set **Runtime → GPU**, then:
 
 ```bash
-%cd /content/smoking_mobilenet
+%cd /content/experiments
 !apt-get install -y unrar                 # required for Mendeley's inner .rar archive
 !pip install -q onnx onnxruntime          # everything else is preinstalled on Colab
 !python download_data.py                  # Mendeley zip -> data/, auto-locates the dataset root

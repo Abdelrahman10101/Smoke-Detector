@@ -8,7 +8,7 @@ services:
     container_name: petrochoice-smoking-service
     restart: unless-stopped
     ports:
-      - "8080:8080"
+      - "8000:8080"
     environment:
       - REQUIRE_GPU=0
       - ORT_THREADS=4
@@ -21,6 +21,7 @@ services:
       - COOLDOWN_S=60.0
       - MOTION_GATE=1
       - CCTV_SIM=0
+      - MODELS_DIR=/app/models
       - VIDEOS_DIR=/data/videos
       - UPLOADS_DIR=/data/uploads
       - EVENTS_DIR=/data/events

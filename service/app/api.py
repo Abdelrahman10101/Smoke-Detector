@@ -53,7 +53,20 @@ app.add_middleware(
 )
 
 # Global singletons
-models_dir = Path(__file__).parent.parent.parent / config.MODELS_DIR
+def _resolve_models_dir(cfg_dir: Path) -> Path:
+    if cfg_dir.is_absolute() and cfg_dir.exists():
+        return cfg_dir
+    candidates = [
+        Path.cwd() / cfg_dir,
+        Path(__file__).resolve().parent.parent / cfg_dir,         # Container: /app/models
+        Path(__file__).resolve().parent.parent.parent / cfg_dir,  # Local dev: repo/models
+    ]
+    for c in candidates:
+        if c.exists():
+            return c.resolve()
+    return (Path(__file__).resolve().parent.parent / cfg_dir).resolve()
+
+models_dir = _resolve_models_dir(config.MODELS_DIR)
 event_manager: Optional[EventManager] = None
 session_manager: Optional[SessionManager] = None
 pipeline: Optional[SmokingPipeline] = None
