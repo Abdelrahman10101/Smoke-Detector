@@ -1,4 +1,4 @@
-# ⚡ PetroChoice — Real-Time CCTV Smoking Detection System
+# ⚡ Real-Time CCTV Smoking Detection System
 
 [![Docker Ready](https://img.shields.io/badge/Docker-Ready-2496ED?logo=docker&logoColor=white)](file:///docker-compose.yml)
 [![ONNX Runtime](https://img.shields.io/badge/ONNX_Runtime-1.23.2-005CED?logo=onnx&logoColor=white)](https://onnxruntime.ai/)
@@ -13,7 +13,7 @@
 ## 🎬 System Demo & Live Monitoring in Action
 
 <div align="center">
-  <img src="assets/demo.gif" alt="PetroChoice Live Smoking Detection Demo" width="100%" />
+  <img src="assets/demo.gif" alt="Live Smoking Detection Demo" width="100%" />
   <p><em>Real-time CCTV inference: YOLO26n person detection, EfficientNet-B0 surveillance smoking classification, and instantaneous safety alert triggering.</em></p>
   <p>
     <a href="assets/demo.mp4">▶️ <b>Watch Full Video Recording (.mp4)</b></a>
@@ -26,7 +26,7 @@
 
 Smoking in fuel dispensing zones, tank farms, and petrochemical facilities poses an catastrophic explosion hazard. Traditional object detection fails because **cigarettes are tiny (often under 10×10 pixels in wide-angle CCTV footage)**, leading to severe missed detections or crippling false-alarm rates from hand-to-face motions.
 
-**PetroChoice Safety Vision** solves this with an end-to-end, two-stage decoupled vision pipeline running entirely via **ONNX Runtime (CPU & GPU)**:
+The **Safety Vision Pipeline** solves this with an end-to-end, two-stage decoupled vision pipeline running entirely via **ONNX Runtime (CPU & GPU)**:
 1. **Person Detection & Framing:** Localizes humans using an end-to-end NMS-free **YOLO26n** detector.
 2. **Intelligent Crop Normalization:** Isolates the subject or upper body, letterboxing to 224×224 without center-cropping or aspect distortion.
 3. **Surveillance-Tuned Classification:** An **EfficientNet-B0** classifier trained with heavy CCTV degradation augments (resolution loss, lens blur, sensor noise, compression artifacts, and timestamp overlays).
@@ -97,7 +97,7 @@ Smoking in fuel dispensing zones, tank farms, and petrochemical facilities poses
 ## 📂 Project Structure
 
 ```
-PetroChoice/
+Smoke-Detector/
 ├── assets/                         # System demo recordings & animated previews
 │   ├── demo.gif                    # High-quality looped dashboard animation
 │   └── demo.mp4                    # Full HD screen recording
@@ -170,7 +170,7 @@ To start the service in background mode:
 
 ```bash
 # Clone the repository and enter the directory
-cd PetroChoice
+cd Smoke-Detector
 
 # Start container using Docker Compose (CPU mode)
 docker compose up -d
@@ -355,5 +355,5 @@ Measured on Intel Core i5 (4 physical cores) under standard CPU execution:
 
 ## 👥 Authors & Acknowledgments
 
-- **PetroChoice Safety Vision Engineering Team**
+- **Safety Vision Engineering Team**
 - **Architecture & Deployment:** Production Dockerized ONNX Runtime Pipeline with FastAPI & Vanilla Web SPA.
