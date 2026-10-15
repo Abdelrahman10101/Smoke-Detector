@@ -10,6 +10,18 @@
 
 ---
 
+## 🎬 System Demo & Live Monitoring in Action
+
+<div align="center">
+  <img src="assets/demo.gif" alt="PetroChoice Live Smoking Detection Demo" width="100%" />
+  <p><em>Real-time CCTV inference: YOLO26n person detection, EfficientNet-B0 surveillance smoking classification, and instantaneous safety alert triggering.</em></p>
+  <p>
+    <a href="assets/demo.mp4">▶️ <b>Watch Full Video Recording (.mp4)</b></a>
+  </p>
+</div>
+
+---
+
 ## 📌 Executive Summary
 
 Smoking in fuel dispensing zones, tank farms, and petrochemical facilities poses an catastrophic explosion hazard. Traditional object detection fails because **cigarettes are tiny (often under 10×10 pixels in wide-angle CCTV footage)**, leading to severe missed detections or crippling false-alarm rates from hand-to-face motions.
@@ -86,6 +98,9 @@ Smoking in fuel dispensing zones, tank farms, and petrochemical facilities poses
 
 ```
 PetroChoice/
+├── assets/                         # System demo recordings & animated previews
+│   ├── demo.gif                    # High-quality looped dashboard animation
+│   └── demo.mp4                    # Full HD screen recording
 ├── Dockerfile                      # Production multi-stage Docker build (CPU & GPU)
 ├── docker-compose.yml              # Standard production service orchestration (CPU)
 ├── docker-compose.gpu.yml          # GPU deployment override (NVIDIA runtime)
