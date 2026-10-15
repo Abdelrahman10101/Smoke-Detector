@@ -322,13 +322,13 @@ flowchart TD
 
 ### Model Performance Benchmarks
 
-| Model Architecture | Parameters | Input Resolution | ONNX Latency (CPU) | CCTV Val Accuracy |
+| Model Architecture | Parameters | Input Resolution | ONNX Latency (CPU) | CCTV Val AUC |
 |---|---|---|---|---|
-| **EfficientNet-B0 (Selected)** | **5.3M** | **224×224** | **~10.2 ms** | **94.2%** |
-| MobileNetV3-Large | 5.4M | 224×224 | ~8.9 ms | 92.1% |
-| EfficientNet-V2-S | 21.5M | 384×384 | ~42.0 ms | 95.1% |
+| **EfficientNet-B0 (Selected)** | **5.3M** | **224×224** | **~10.2 ms** | **0.963 (96.3%)** |
+| MobileNetV3-Large | 5.4M | 224×224 | ~8.9 ms | 0.913 (91.3%) |
+| EfficientNet-V2-S | 21.5M | 384×384 | ~42.0 ms | 0.962 (96.2%) |
 
-*EfficientNet-B0 was selected as the optimal sweet spot between feature extraction depth, low CPU latency, and high accuracy under heavy image degradation.*
+*EfficientNet-B0 was selected as the optimal sweet spot, achieving the highest ROC-AUC (0.963) under heavy CCTV degradation while maintaining low CPU inference latency.*
 
 ---
 
