@@ -1,4 +1,4 @@
-# Multi-stage production Dockerfile for PetroChoice Smoking Detection Service
+# Multi-stage production Dockerfile for Smoking Detection Service
 ARG VARIANT=cpu
 
 # ---------------------------------------------------------

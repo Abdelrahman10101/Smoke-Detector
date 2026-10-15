@@ -158,7 +158,7 @@ smoking_mobilenet/data/validation_data/
 smoking_mobilenet/data/testing_data/
 
 # ==============================================================================
-# PetroChoice Service Runtime Data & Storage
+# Service Runtime Data & Storage
 # ==============================================================================
 # SQLite runtime databases
 *.db

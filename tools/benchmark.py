@@ -28,7 +28,7 @@ def run_benchmark(n_frames: int = 50, threads: int = 4):
     cls_model = models_dir / cfg.CLASSIFIER_MODEL
 
     print("=" * 60)
-    print(f"BENCHMARK: PetroChoice Smoking Detection (CPU Threads: {threads})")
+    print(f"BENCHMARK: Smoking Detection (CPU Threads: {threads})")
     print("=" * 60)
 
     det_sess = create_session(det_model, cfg)

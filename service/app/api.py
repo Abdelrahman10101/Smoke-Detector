@@ -39,7 +39,7 @@ logger = logging.getLogger(__name__)
 
 # Initialize FastAPI app
 app = FastAPI(
-    title="PetroChoice Smoking Detection Service",
+    title="Smoking Detection Service",
     description="Edge CCTV & Video Smoking Detection using YOLO26n and EfficientNet-B0 ONNX",
     version="1.0.0"
 )
@@ -149,7 +149,7 @@ async def version():
             pass
             
     return {
-        "service": "PetroChoice Smoking Detection",
+        "service": "Smoking Detection Service",
         "version": "1.0.0",
         "models": manifest.get("models", {}),
         "threshold": config.SMOKING_THRESHOLD,
@@ -448,5 +448,5 @@ if dashboard_dir.exists():
         index_file = dashboard_dir / "index.html"
         if index_file.exists():
             return HTMLResponse(content=index_file.read_text(encoding="utf-8"))
-        return HTMLResponse("<h3>PetroChoice Smoking Detection Service Running</h3>")
+        return HTMLResponse("<h3>Smoking Detection Service Running</h3>")
 

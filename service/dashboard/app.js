@@ -1,4 +1,4 @@
-// PetroChoice Smoking Detection Service — Dashboard Controller
+// Smoking Detection Service — Dashboard Controller
 document.addEventListener("DOMContentLoaded", () => {
   // Elements
   const selectVideo = document.getElementById("select-video");
